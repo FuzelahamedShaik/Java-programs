@@ -1,0 +1,141 @@
+Flight.java
+    1 
+    2 public class Flight {
+    3 	
+    4 	private int flightId;
+    5 	private String source;
+    6 	private String destination;
+    7 	private int noOfSeats;
+    8 	private double flightFare;
+    9 	public int getFlightId() {
+   10 		return flightId;
+   11 	}
+   12 	public void setFlightId(int flightId) {
+   13 		this.flightId = flightId;
+   14 	}
+   15 	public String getSource() {
+   16 		return source;
+   17 	}
+   18 	public void setSource(String source) {
+   19 		this.source = source;
+   20 	}
+   21 	public String getDestination() {
+   22 		return destination;
+   23 	}
+   24 	public void setDestination(String destination) {
+   25 		this.destination = destination;
+   26 	}
+   27 	public int getNoOfSeats() {
+   28 		return noOfSeats;
+   29 	}
+   30 	public void setNoOfSeats(int noOfSeats) {
+   31 		this.noOfSeats = noOfSeats;
+   32 	}
+   33 	public double getFlightFare() {
+   34 		return flightFare;
+   35 	}
+   36 	public void setFlightFare(double flightFare) {
+   37 		this.flightFare = flightFare;
+   38 	}
+   39 	public Flight(int flightId, String source, String destination,
+   40 			int noOfSeats, double flightFare) {
+   41 		super();
+   42 		this.flightId = flightId;
+   43 		this.source = source;
+   44 		this.destination = destination;
+   45 		this.noOfSeats = noOfSeats;
+   46 		this.flightFare = flightFare;
+   47 	}
+   48 
+   49 	
+   50 
+   51 }
+   52 
+FlightManagementSystem.java
+    1 import java.sql.*;
+    2 public class FlightManagementSystem{
+    3     public boolean addFlight(Flight flightObj){
+    4         int resultSet = 0;
+    5         try{
+    6             DB db = new DB();
+    7             Connection con = db.getConnection();
+    8             Statement st = con.createStatement();
+    9             resultSet = st.executeUpdate("Insert into flight values("+flightObj.getFlightId()+",'"+flightObj.getSource()+"','"+flightObj.getDestination()+"',"+flightObj.getNoOfSeats()+","+flightObj.getFlightFare()+")");
+   10         }catch(Exception e){
+   11             e.printStackTrace();
+   12         }
+   13         return (resultSet==1)? true: false;
+   14     }
+   15 }
+Main.java
+    1 import java.util.*;
+    2 public class Main{
+    3     public static void main(String[] args){
+    4         try{
+    5             Scanner sc =new Scanner(System.in);
+    6             FlightManagementSystem f = new FlightManagementSystem();
+    7             Flight f1 = new Flight(1,"INDIA","USA",2,10000);
+    8             f1.setFlightId(2);
+    9             f1.setSource("INDIA");
+   10             f1.setDestination("GERMANY");
+   11             f1.setNoOfSeats(3);
+   12             f1.setFlightFare(12000);
+   13             if(f.addFlight(f1)==true){
+   14                 System.out.println("Flight details added Successfully");
+   15             }else{
+   16                 System.out.println("Addition not done");
+   17             }
+   18         }
+   19         catch(Exception e){
+   20             System.out.println(e);
+   21         }
+   22         
+   23     }
+   24 }
+DB.java
+    1 import java.io.FileInputStream;
+    2 import java.io.IOException;
+    3 import java.sql.Connection;
+    4 import java.sql.DriverManager;
+    5 import java.sql.SQLException;
+    6 import java.util.Properties;
+    7 
+    8 public class DB {
+    9 
+   10 	private static Connection con = null;
+   11 	private static Properties props = new Properties();
+   12 	
+   13 
+   14     //ENSURE YOU DON'T CHANGE THE BELOW CODE WHEN YOU SUBMIT
+   15 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+   16 	    try{
+   17 			
+   18 			FileInputStream fis = null;
+   19 			fis = new FileInputStream("database.properties");
+   20 			props.load(fis);
+   21 			
+   22 			// load the Driver Class
+   23 			Class.forName(props.getProperty("DB_DRIVER_CLASS"));
+   24 
+   25 			// create the connection now
+   26             con = DriverManager.getConnection(props.getProperty("DB_URL"),props.getProperty("DB_USERNAME"),props.getProperty("DB_PASSWORD"));
+   27 	    }
+   28 	    catch(IOException e){
+   29 	        e.printStackTrace();
+   30 	    }
+   31 		return con;	
+   32 	}
+   33 }
+   34 
+database.properties
+    1 #IF NEEDED, YOU CAN MODIFY THIS PROPERTY FILE
+    2 #ENSURE YOU ARE NOT CHANGING THE NAME OF THE PROPERTY
+    3 #YOU CAN CHANGE THE VALUE OF THE PROPERTY 
+    4 #LOAD THE DETAILS OF DRIVER CLASS, URL, USERNAME AND PASSWORD IN DB.java using this properties file only. 
+    5 #Do not hard code the values in DB.java.
+    6 
+    7 DB_DRIVER_CLASS=com.mysql.jdbc.Driver
+    8 DB_URL=jdbc:mysql://localhost:3306/${sys:DB_USERNAME}
+    9 DB_USERNAME=${sys:DB_USERNAME}
+   10 DB_PASSWORD=${sys:DB_USERNAME}
+   11 
