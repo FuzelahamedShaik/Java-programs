@@ -1,0 +1,98 @@
+Main.java
+    1 import java.util.*;
+    2 import java.text.SimpleDateFormat;
+    3 public class Main {
+    4 
+    5 public static Dates fun(String line){
+    6    
+    7       String[] s = new String[5];
+    8       s = line.split("[/:]");
+    9       Dates o = new Dates(Integer.parseInt(s[0]),Integer.parseInt(s[1]),Integer.parseInt(s[2]),Integer.parseInt(s[3]),Integer.parseInt(s[4]));
+   10       return o;
+   11 }
+   12 public static int eq(Dates o1,Dates o2){
+   13     if(o1.day==o2.day && o1.month==o2.month && o1.year==o2.year){
+   14         return 1;
+   15     }
+   16     return -1;
+   17 }
+   18 public static int checkDate(Dates o1,Dates o2){
+   19     if(o1.year<=o2.year){
+   20         if(o1.month<=o2.month){
+   21             if(o1.day<=o2.day){
+   22                 return 1;
+   23             }
+   24         }
+   25     }
+   26     return -1;
+   27 }
+   28 public static int checkTime(Dates o1,Dates o2){
+   29     if(o1.hours<=o2.hours){
+   30         if(o1.minutes<=o2.minutes){
+   31             return 1;
+   32         }
+   33     }
+   34     return -1;
+   35 }
+   36 public static int compare(Dates o1,Dates o2){
+   37     if(eq(o1,o2)==1){
+   38         if(checkTime(o1,o2)==1){
+   39             return 1;
+   40         }
+   41     }else if(checkDate(o1,o2)==-1){
+   42         if(checkTime(o1,o2)==1){
+   43             return 1;
+   44         }
+   45     }
+   46     else if(checkDate(o1,o2)==1)
+   47     return 1;
+   48     
+   49     
+   50     return -1;
+   51 }
+   52 public static void main(String [] args){
+   53     int flag=0;
+   54     String time1="",time2="";
+   55     try{
+   56         Scanner sc = new Scanner(System.in);
+   57         System.out.println("In-time");
+   58         time1 = sc.nextLine();
+   59         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+   60         Date sys=format.parse("29/10/2019 20:10");
+   61         Date d1=format.parse(time1);
+   62         flag = 1;
+   63         if(d1.compareTo(sys)>=0){
+   64             System.out.println(time1+" is an Invalid In-Time");
+   65             return;
+   66         }
+   67         System.out.println("Out-Time");
+   68         time2=sc.nextLine();
+   69         Date d2 = format.parse(time2);
+   70         if(d1.compareTo(d2)==0){
+   71             System.out.println(time2+" is an Invalid Out-Time");
+   72             return;
+   73         }
+   74         if(!(d2.compareTo(d1)>=0)){
+   75             System.out.println(time2+" is an Invalid  Out-Time");
+   76             return;
+   77         }
+   78         double diff=Math.ceil((d2.getTime()-d1.getTime())/3600000.0);
+   79         System.out.printf("%.0f Rupees",diff*10);
+   80     }catch(Exception e){
+   81         if(flag==1)
+   82         System.out.println(time2+" is an Invalid Out-Time");
+   83         else
+   84         System.out.println(time1+" is an Invalid In-Time");
+   85     }
+   86 }
+   87 }
+   88 class Dates{
+   89     int day,month,year,hours,minutes;
+   90     Dates(int dd,int mm,int yy,int hh,int mi){
+   91         this.day=dd;
+   92         this.month=mm;
+   93         this.year=yy;
+   94         this.hours=hh;
+   95         this.minutes=mi;
+   96     }
+   97 }

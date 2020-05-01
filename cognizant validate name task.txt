@@ -1,0 +1,41 @@
+Validate.java
+    1 public interface Validate{
+    2     public boolean validateName(String name);
+    3     
+    4 }
+ValidateUtility.java
+    1 import java.util.*;
+    2 public class ValidateUtility
+    3 {
+    4     public static void main(String args[])
+    5     {
+    6         Scanner s = new Scanner(System.in);
+    7         String cutnName,prodName;
+    8         cutnName=s.nextLine();
+    9         prodName=s.nextLine();
+   10         Validate v1 = ValidateUtility.validateEmployeeName();
+   11         Validate v2 = ValidateUtility.validateProductName();
+   12         if(v1.validateName(cutnName)){
+   13             System.out.println("Employee name is valid");
+   14         }else{
+   15             System.out.println("Employee name is invalid");
+   16         }
+   17         if(v2.validateName(prodName)){
+   18             System.out.println("Product name is valid");
+   19         }else{
+   20             System.out.println("Product name is invalid");
+   21         }
+   22     }
+   23     
+   24     public static Validate validateEmployeeName() 
+   25     {
+   26         Validate v=(String s)->{return s.matches("^[A-Za-z ]{5,20}$");};
+   27         return v;
+   28     }
+   29     
+   30     public static Validate validateProductName() 
+   31     {
+   32         Validate v=(String s)->{return s.matches("^[A-Za-z]{1}[0-9]{5}$");};
+   33         return v;
+   34     }
+   35 }
