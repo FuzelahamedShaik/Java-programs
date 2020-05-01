@@ -1,0 +1,146 @@
+Main.java
+    1 import java.util.*;
+    2 public class Main
+    3 {
+    4     public static void main(String args[])
+    5     {
+    6        Shape h[] = new Shape[5];
+    7        Scanner sc = new Scanner(System.in);
+    8        String shape;
+    9        for(int i=0;i<5;i++){
+   10            shape = sc.next();
+   11            System.out.println(shape);
+   12            if(shape.equals("Triangle")){
+   13                Triangle t = new Triangle();
+   14                t.setBase(sc.nextDouble());
+   15                t.setHeight(sc.nextDouble());
+   16                h[i] = t;
+   17                System.out.println("Area "+h[i].area());
+   18            }else if(shape.equals("Sphere")){
+   19                Sphere s = new Sphere();
+   20                s.setRadius(sc.nextDouble());
+   21                h[i] = s;
+   22                System.out.println("Area "+h[i].area());
+   23                System.out.println("Volume "+h[i].volume());
+   24            }else if(shape.equals("Rectangle")){
+   25                Rectangle r = new Rectangle();
+   26                r.setLength(sc.nextDouble());
+   27                r.setWidth(sc.nextDouble());
+   28                h[i] = r;
+   29                System.out.println("Area "+h[i].area());
+   30            }else{
+   31                Cube c = new Cube();
+   32                c.setLength(sc.nextDouble());
+   33                c.setWidth(sc.nextDouble());
+   34                c.setHeight(sc.nextDouble());
+   35                h[i] = c;
+   36                System.out.println("Area "+h[i].area());
+   37                System.out.println("Volume "+h[i].volume());
+   38            }
+   39        }
+   40     }
+   41 }
+Cube.java
+    1 public class Cube extends Shape implements Spatial
+    2 {
+    3     private double length,width,height;
+    4     public double getLength(){
+    5         return length;
+    6     }
+    7     public void setLength(double length){
+    8         this.length = length;
+    9     }
+   10     public double getWidth(){
+   11         return width;
+   12     }
+   13     public void setWidth(double width){
+   14         this.width = width;
+   15     }
+   16     public double getHeight(){
+   17         return height;
+   18     }
+   19     public void setHeight(double height){
+   20         this.height = height;
+   21     }
+   22     public double area(){
+   23         return ((2*length*width)+(2*length*height)+(2*width*height));
+   24     }
+   25     public double volume(){
+   26         return (length*width*height);
+   27     }
+   28 }
+Rectangle.java
+    1 public class Rectangle extends Shape
+    2 {
+    3     private double length, width;
+    4     public double getLength(){
+    5         return length;
+    6     }
+    7     public void setLength(double length){
+    8         this.length = length;
+    9     }
+   10     public double getWidth(){
+   11         return width;
+   12     }
+   13     public void setWidth(double width){
+   14         this.width = width;
+   15     }
+   16     public double area(){
+   17         return length*width;
+   18     }
+   19     public double volume(){
+   20         return -1;
+   21     }
+   22 }
+Shape.java
+    1 public abstract class Shape
+    2 {
+    3     public abstract double area();
+    4     public abstract double volume();
+    5 }
+Spatial.java
+    1 public interface Spatial
+    2 {
+    3  
+    4 }
+Sphere.java
+    1 public class Sphere extends Shape implements Spatial
+    2 {
+    3     private double radius;
+    4     public double getRadius(){
+    5         return radius;
+    6     }
+    7     public void setRadius(double radius){
+    8         this.radius = radius;
+    9     }
+   10     public double area(){
+   11         return 4*Math.PI*radius*radius;
+   12     }
+   13     public double volume(){
+   14         return ((4*Math.PI*radius*radius*radius)/3);
+   15     }
+   16 }
+Triangle.java
+    1 public class Triangle extends Shape
+    2 {
+    3     private double base;
+    4     private double height;
+    5     public double getBase(){
+    6         return base;
+    7     }
+    8     public void setBase(double base){
+    9         this.base = base;
+   10     }
+   11     public double getHeight(){
+   12         return height;
+   13     }
+   14     public void setHeight(double height){
+   15         this.height = height;
+   16     }
+   17     public double area(){
+   18         return ((0.5)*base*height);
+   19     }
+   20     public double volume(){
+   21         return -1;
+   22     }
+   23 }

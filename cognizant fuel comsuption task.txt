@@ -1,0 +1,43 @@
+Main.java
+    1 import java.util.Scanner;
+    2 public class Main{
+    3 
+    4     public double find(double lit , double dis){
+    5         double d = 100;
+    6         double req = (lit/dis)*d;
+    7         return req;
+    8     }
+    9     public double in_miles_per_gallons(double lit , double dis){
+   10         double mil = dis*(0.6214);
+   11         double gal = lit*(0.2642);
+   12         double mg = (mil/gal);
+   13         return mg;
+   14     }
+   15     public static void main(String args[]){
+   16         Main obj = new Main();
+   17         Scanner s = new Scanner(System.in);
+   18         System.out.println("Enter the no of liters to fill the tank");
+   19         double lit = s.nextDouble();
+   20         double gal = lit*(0.2642);
+   21         if(lit<=0){
+   22             System.out.printf((int)lit+" is an Invalid Input");
+   23         } 
+   24         else{
+   25         System.out.println("Enter the distance covered");
+   26         double dis = s.nextDouble();
+   27         double mil = dis*(0.6214);
+   28         if(dis<=0){
+   29             System.out.print((int)dis+" is an Invalid Input");
+   30         }
+   31         else{
+   32             double out1 = obj.find(lit , dis);
+   33             double out2 = (mil/gal);
+   34             System.out.print("Liters/100KM\n");
+   35             System.out.printf("%.2f\n",out1);
+   36             System.out.print("Miles/gallons\n");
+   37             System.out.printf("%.2f",out2);
+   38         }
+   39         }
+   40     }
+   41     
+   42 }

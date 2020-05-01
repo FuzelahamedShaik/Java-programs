@@ -1,0 +1,106 @@
+InsuranceBazaar/src/com/ui/UserInterface.java
+    1 package com.ui;
+    2 import com.utility.*;
+    3 import java.util.*;
+    4 
+    5 public class UserInterface {
+    6 
+    7 	public static void main(String[] args) {
+    8 		// TODO Auto-generated method stub
+    9 		Scanner sc =new Scanner(System.in);
+   10 		//Fill the UI code
+   11 		Bazaar baz = new Bazaar();
+   12 		System.out.println("Enter the no of Policy names you want to store");
+   13 		int n = sc.nextInt();
+   14 		String b;
+   15 		int a;
+   16         for(int i=0;i<n;i++){
+   17             System.out.println("Enter the Policy ID");
+   18             a = sc.nextInt();
+   19             System.out.println("Enter the Policy Name");
+   20             sc.nextLine();
+   21             b = sc.nextLine();
+   22             baz.addPolicyDetails(a,b);
+   23         }
+   24         Map<Integer,String> m1=baz.getPolicyMap();
+   25         Set s = m1.entrySet();
+   26         Iterator i = s.iterator();
+   27         while(i.hasNext()){
+   28             Map.Entry s1=(Map.Entry) i.next();
+   29             System.out.println((Integer) s1.getKey()+" "+(String) s1.getValue());
+   30         }
+   31         System.out.println("Enter the Policy type to be searched");
+   32         b=sc.next();
+   33         List<Integer> asd=baz.searchBasedOnPolicyType(b);
+   34         for(Integer k:asd){
+   35             System.out.println(k);
+   36         }
+   37 	}
+   38 
+   39 }
+   40 
+InsuranceBazaar/src/com/utility/Bazaar.java
+    1 package com.utility;
+    2 import com.ui.*;
+    3 import java.util.*;
+    4 
+    5 
+    6 public class Bazaar {
+    7 	
+    8 	private Map<Integer,String> policyMap=new TreeMap<Integer,String>();
+    9 	
+   10 	public Map<Integer, String> getPolicyMap() {
+   11 		return policyMap;
+   12 	}
+   13 
+   14 	public void setPolicyMap(Map<Integer, String> policyMap) {
+   15 		this.policyMap = policyMap;
+   16 	}
+   17 
+   18 	//This method should add the policyID as key and policyName as value into the policyMap
+   19 	public void addPolicyDetails(int policyId,String policyName)
+   20 	{
+   21 	    Map<Integer,String> m1=getPolicyMap();
+   22 	    m1.put(policyId,policyName);
+   23 	    setPolicyMap(m1);
+   24 	}
+   25 	
+   26 	/*
+   27 	 * This method should search the policy name based on the policy type and add those policy names
+   28 	 * into the list and return the list.
+   29 	 * For example: If the map contains the key and value as:
+   30 	 *  10654 Max Bupa Health Insurance
+   31 	    10321 SBI Health Insurance
+   32 	    20145 IFFCO Tokio Two Wheeler Insurance
+   33 	    20165 New India Assurance Two Wheeler Insurance
+   34 	    10110 Reliance Health Insurance
+   35 		if the policy type is Health the output should be
+   36 		10110
+   37 		10321
+   38 		10654
+   39 
+   40 	 */
+   41 	public List<Integer> searchBasedOnPolicyType(String policyType){
+   42 	    
+   43 	    Map<Integer,String>policyMap=getPolicyMap();
+   44 	    Set s = policyMap.entrySet();
+   45 	    List<Integer> a = new ArrayList<Integer>();
+   46 	    Iterator i = s.iterator();
+   47 	    while(i.hasNext()){
+   48 	        Map.Entry m1=(Map.Entry) i.next();
+   49 	        int key = (Integer) m1.getKey();
+   50 	        String value = (String)m1.getValue();
+   51 	        if(value.indexOf(policyType)!=-1){
+   52 	            a.add(key);
+   53 	        }
+   54 	    }
+   55 		
+   56 			
+   57 	
+   58 		return a;
+   59 		
+   60 	}
+   61 	
+   62 
+   63 }
+   64 

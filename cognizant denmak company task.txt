@@ -1,0 +1,54 @@
+Associate.java
+    1 import java.util.*;
+    2 public class Associate{
+    3     private int associateId;
+    4     private String associateName;
+    5     private String workStatus;
+    6     public Associate(){
+    7     }
+    8     public int getAssociateId(){
+    9         return associateId;
+   10     }
+   11     public void setAssociateId(int associateId){
+   12         this.associateId = associateId;
+   13     }
+   14     public String getAssociateName(){
+   15         return associateName;
+   16     }
+   17     public void setAssociateName(String associateName){
+   18         this.associateName = associateName;
+   19     }
+   20     public String getWorkStatus(){
+   21         return workStatus;
+   22     }
+   23     public  void setWorkStatus(String workStatus){
+   24         this.workStatus = workStatus;
+   25     }
+   26     public void trackAssociateStatus(int noOfDays){
+   27         if(noOfDays <= 20){
+   28             setWorkStatus("Core skills");
+   29         }else if(noOfDays > 20 && noOfDays <= 40){
+   30             setWorkStatus("Advanced modules");
+   31         }else if (noOfDays > 40 && noOfDays <= 60){
+   32             setWorkStatus("Project phase");
+   33         }else{
+   34             setWorkStatus("Deployed in project");
+   35         }
+   36     }
+   37 }
+Main.java
+    1 import java.util.*;
+    2 public class Main{
+    3     public static void main(String args[]){
+    4         Scanner sc = new Scanner(System.in);
+    5         Associate a = new Associate();
+    6         System.out.println("Enter the associate id:");
+    7         a.setAssociateId(sc.nextInt());
+    8         System.out.println("Enter the associate name:");
+    9         sc.nextLine();
+   10         a.setAssociateName(sc.nextLine());
+   11         System.out.println("Enter the number of days:");
+   12         a.trackAssociateStatus(sc.nextInt());
+   13         System.out.println("The associate "+a.getAssociateName()+" work status:"+a.getWorkStatus());
+   14     }
+   15 }

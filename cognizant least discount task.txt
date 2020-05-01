@@ -1,0 +1,37 @@
+
+Main.java
+    1 import java.util.*;
+    2 public class Main{
+    3     public static void main (String[] args) {
+    4      Scanner sc=new Scanner(System.in);
+    5      int n = sc.nextInt();
+    6      String[] str = new String[n];
+    7      sc.nextLine();
+    8      for(int i=0;i<n;i++){
+    9          str[i] = sc.nextLine();
+   10      }
+   11      int[] discount = new int[n];
+   12      int minimum=0;
+   13      String[] names = new String[n];
+   14      for(int i=0;i<n;i++){
+   15         String[] s = str[i].split(",",0);
+   16         names[i] = s[0];
+   17         int x = Integer.parseInt(s[1]);
+   18         int y = Integer.parseInt(s[2]);
+   19         int m = (x*y)/100;
+   20         discount[i] = m;
+   21         if(i==0){
+   22             minimum = discount[i];
+   23         }else{
+   24             if(discount[i] <= minimum){
+   25                 minimum = discount[i];
+   26             }
+   27         }
+   28      }
+   29     for(int i=0;i<n;i++){
+   30         if(discount[i] == minimum){
+   31             System.out.println(names[i]);
+   32         }
+   33     }       
+   34     }
+   35 }
