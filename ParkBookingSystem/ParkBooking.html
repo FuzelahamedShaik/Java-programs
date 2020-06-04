@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+       <style>
+           body {
+               background-color: #FFAACC;
+           }
+           h1 {
+               color: #770080;
+               font-family: Courier New;
+               font-style: italic;
+               text-align: center;
+           }
+           #result {
+				color:#770080;
+				font-weight:bold;
+			}
+       </style>
+    </head>
+    <body>
+        <center>
+            <h1>Book Your Tickets</h1>
+        <form onsubmit="return calculateCharges()">
+            <label for="customerName">Customer Name</label>
+            <input type="text" id="customerName" name="customerName"  pattern="[a-zA-Z\s]+" placeholder ="Enter your name" required><br>
+            <label for="address">Address</label>
+            <textarea name="address" id="address" rows="5" cols="20" required></textarea><br>
+            <label for="customerEmail">Email ID</label>
+            <input type="email" name="customerEmail" id="customerEmail" required><br>
+            <label for="customerMobileNumber">Mobile Number</label>
+            <input type="tel" name="customerMobileNumber" id="customerMobileNumber" required><br>
+            <label for="location">Park Location</label>
+            <input type="radio" name="location" id="locationDelhi" value="Delhi" required>
+            <label for="locationDelhi">Delhi</label>
+            <input type="radio" name="location" id="locationMumbai" value="Mumbai" required> 
+            <label for="locationMumbai">Mumbai</label><br>
+            <label for="dateOfVisit">Date of Visit</label>
+            <input type="date" name="dateOfVisit" id="dateOfVisit" required><br>
+            <label for="bookingType">Booking Type</label>
+            <input list="bookType" name="bookingType" id="bookingType" required>
+						<datalist id="bookType" name="bookType" >
+							<option value="Normal">
+							<option value="School">
+							<option value="Corporate">
+						</datalist><br>
+            <label for="adults">Adult</label>
+            <input type="number" name="adults" id="adults" min="0" max="500" required><br>
+            <label for="children">Children</label>
+            <input type="number" name="children" id="children" min="0" max="500" required><br>
+            <input type="submit" value="Book Now" name="submit" id="submit">
+            <input type="reset" value="Clear" name="reset" id="reset">
+            <div id="result"></div>
+        </form>
+        </center>
+        <script>
+            function calculateCharges(){
+                var cname = document.getElementById("customerName").value;
+                var ad = document.getElementById("adults").value;
+                var ch = document.getElementById("children").value;
+                var totalCost = ad*1500 + ch*1200;
+                var b = document.getElementById("bookingType").value;
+                var discount = 0;
+                var  result = 0;
+                if(b=="School"){
+                    discount = totalCost*0.5;
+                    result = totalCost - discount;
+                    document.getElementById("result").innerHTML =  "Thank you "+cname+". Total cost to be paid is "+result;
+                }else if(b=="Corporate"){
+                    discount = totalCost*0.25;
+                    result = totalCost - discount;
+                    document.getElementById("result").innerHTML =  "Thank you "+cname+". Total cost to be paid is "+result;
+                }else{
+                    result = totalCost;
+                    document.getElementById("result").innerHTML =  "Thank you "+cname+". Total cost to be paid is "+result;
+                }
+                return false;
+            }
+        </script>
+    </body>
+</html>
